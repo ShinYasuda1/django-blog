@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form action="" method="POST">
+  <table class="table">
+      <tr>
+        <th>タイトル</th>
+        <td>{{ post.title }}</td>
+      </tr>
+      <tr>
+        <th>本文</th>
+        <td>{{ post.text }}</td>
+      </tr>
+      <tr>
+        <th>日付</th>
+        <td>{{ post.date }}</td>
+      </tr>
+  </table>
+  <p>こちらのデータを削除します。</p>
+  <button type="submit">送信</button>
+  {% csrf_token %}
+</form>
+{% endblock %}

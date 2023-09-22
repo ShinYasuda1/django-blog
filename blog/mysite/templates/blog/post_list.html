@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<table class="table">
+  <thead>
+    <tr>
+      <th>タイトル</th>
+      <th>日付</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for post in post_list %}
+    <tr>
+      <!-- 「url 'アプリ名:逆引きURL' 渡されるモデル.pk」 という描き方 -->
+      <td><a href="{% url 'blog:post_detail' post.pk %}">{{ post.title }}</a></td>
+      <td>{{ post.date }}</td>
+      <td>
+        <!-- superuserでログインしている時にのみ表示 -->
+        {% if user.is_superuser %}
+        <!-- HTMLを アプリ名_モデル名_change にすると admin でそのまま編集できる -->
+          <a href="{% url 'blog:post_update' post.pk %}">編集</a>
+        {% endif %}
+      </td>
+      <td>
+        {% if user.is_superuser %}
+          <a href="{% url 'blog:post_delete' post.pk %}">削除</a>
+        {% endif %}
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
